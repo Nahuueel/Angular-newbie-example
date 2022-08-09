@@ -1,0 +1,145 @@
+<body>
+
+  <h2>Components Example:</h2>
+  <br>
+  <app-hello-world>
+  </app-hello-world>
+  <br>
+  <h2>Text Interpolation Example:</h2>
+  <br>
+  <h1>{{title}}</h1> <!-- Muestra de como se emplea la interpolacion de texto -->
+  {{getMin(5,6)}}
+  <!-- Muestra de como se emplea la interpolacion de texto, en este caso llamando a una funcion -->
+  <br><br>
+  <h2>Components Comunication Example:</h2>
+  <br><br>
+  <app-parent></app-parent> <!-- Se llama al componente padre, el cual dentro llama también a su comomnete hijo -->
+  <br><br>
+  <h2>Ng-content Example:</h2>
+  <app-child>
+    <h3 question>Is this working as intended?</h3>
+    <p answer>Ponele</p>
+  </app-child>
+  <br><br>
+  <h2>Toggle Template Statment Example:</h2>
+  <button (click)="toggleText($event)">Toggle Text</button>
+  {{showText}}
+  <br><br>
+  <h2>Pipes Example:</h2>
+  {{'World' | greetingsPipes}}
+  {{timeDate | date : 'EEEE MMMM d y'}}
+  <br><br>
+  <h2>Property Binding Example:</h2>
+  <img style="margin-left: 5%;" [src]="itemImageUrl">
+  <br><br>
+  <h2>Attribute, Class & Style Binding Example:</h2>
+  <div [style]="{
+      width: '50px',
+      height: '50px',
+      background: 'green'
+    }"></div>
+  <br><br>
+  <h2>Event Binding Example:</h2>
+  <button (click)="onSave()">Save</button>
+  <app-item-details (deleteRequest)="deleteItem($event)"></app-item-details>
+  <br><br>
+  <h2>Two Way Binding Example:</h2>
+    <app-app-sizer [(size)]="fontSizepx"></app-app-sizer>
+    <div [style.font-size.px]="fontSizepx">resizible text</div>
+  <br><br>
+  <h2>Templates variables Example:</h2>
+    <input #phone placeholder="phone" />
+      <button (click)="callPhone(phone.value)">Call</button>
+    <input #ref1 type="text" />
+     <span>{{ref1.value}}</span>
+  <br><br>
+  <h2>Directives Example: </h2>
+    <div [ngClass]="isSpecial ? 'special' : 'bold'">Example</div>
+    <div [ngStyle]="currentStyle">Example</div>
+    <label for="example">{{name}}</label>
+     <input [(ngModel)]="directivesName" id="example">
+  <br><br>
+  <h2>Attribute Directives Example:</h2>
+  <p [appHighlight]="'red'">Test</p>
+  <br><br>
+  <h2>Structural Directives Example:</h2>
+  <div *ngIf="isactive">Active</div>
+  <div *ngFor="let item of items; let i = index">{{i}} - {{item.name}}</div>
+  <br>
+  <div *ngFor="let item of items">
+    <div [ngSwitch]="item.name">
+      <div *ngSwitchCase="'bob'">Hi Monika</div>
+      <div *ngSwitchCase="'monika'">Hi Bob</div>
+      <div *ngSwitchDefault>Hi friend</div>
+    </div>
+  </div>
+  <br><br>
+  <h2>Dependency Injection Example:</h2>
+  <h2>Routing Example:</h2>
+  <h1>Angular Router app</h1>
+  <nav>
+    <ul>
+      <li><a routerLink="/routing-component-one">Routed Component One</a></li>
+      <li><a routerLink="/routing-component-two">Routed Component Two</a></li>
+    </ul>
+  </nav>
+  <router-outlet></router-outlet>
+  <br><br>
+  <h2>Template-driven forms example</h2>
+  <div [hidden]="submited">
+    <p>{{model | json}}</p>
+    <form #petForm="ngForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" required [(ngModel)]="model.name" name="name">
+      </div>
+      <div>
+        <label for="specie">Specie</label>
+        <select id="specie" required [(ngModel)]="model.specie" name="specie">
+          <option *ngFor="let specie of species" [value]="specie">{{specie}}</option>
+        </select>
+      </div>
+      <button [disabled]="!petForm.form.valid" type="submit">Submit</button>
+    </form>
+  </div>
+  <div [hidden]="!submited">
+    <h2>You submited:</h2>
+    <p>Name: {{model.name}}</p>
+    <p>Specie: {{model.specie}}</p>
+    <button (click)="submited = false">Edit</button>
+  </div>
+  <br><br>
+  <h2>Reactive Forms Example:</h2>
+  <label for="nameReactiveForms">Name:</label>
+  <input id="nameReactiveForms" type="text" [formControl]="nameReactiveForms">
+  <p>Value: {{nameReactiveForms.value}}</p>
+  <p>
+    <button (click)="updateName()">Update</button>
+  </p>
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmitTwo()">
+    <label for="first-name">First Name:</label>
+    <input id="first-name" type="text" formControlName="firstName">
+    <label for="last-name">Last Name:</label>
+    <input id="Last-name" type="text" formControlName="lastName">
+    <button type="submit" [disabled]="!profileForm.valid">Send</button>
+  </form>
+  <br><br>
+  <h2>Form Validation</h2>
+  <form [formGroup]="validationForm">
+    <input type="text"
+    name="name"
+    required
+    minlength="4"
+    formControlName="name"
+    />
+    <div *ngIf="name.invalid && (name.dirty || name.touched)">
+      <div *ngIf="name.errors?.['required']">
+        Name is Invalid
+      </div>
+      <div *ngIf="name.errors?.['minlength']">
+        Name must be at least 4 characters long
+      </div>
+    </div>
+  </form>
+
+</body>

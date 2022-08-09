@@ -1,0 +1,2 @@
+<app-child [childMessage] = "'Hello from Parent'"></app-child> <!-- accede al atributo del componente hijo y le almacena un string -->
+<app-child (messageEvent)="receiveMessage($event)"></app-child> <!-- Espera al eveto messageEvent el cual envia un mensaje que mostrará el componente padre a traves de una funcion -->
